@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeByIsrael</title>
+  <style>
+    /* Reset & Base */
+     * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      background-color: #f9f9f9;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+    h1, h2, h3 {
+      font-weight: bold;
+    }
+
+    /* Navbar */
+    nav {
+      position: sticky;
+      top: 0;
+      background: white;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 15px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      z-index: 100;
+      flex-wrap: wrap; /* helps with smaller screens */
+    }
+    nav a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #0077b5;
+    }
+    nav a.active {
+      color: #0077b5;
+      border-bottom: 2px solid #0077b5;
+      padding-bottom: 4px;
+    }
+
+    header, section {
+      padding: 80px 20px;
+      text-align: center;
+    }
+    header {
+      background: linear-gradient(to bottom, #e0f0ff, #f9f9f9);
+    }
+
+    /* Profile Image */
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 6px solid white;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.25),
+                  0px 0px 15px rgba(0, 119, 181, 0.4);
+      object-fit: cover;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .profile-pic:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 8px 25px rgba(0,0,0,0.3),
+                  0px 0px 20px rgba(0, 119, 181, 0.5);
+    }
+
+    /* Links */
+    .links a {
+      margin: 0 10px;
+      font-size: 1.1em;
+      color: #0077b5;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .links a:hover {
+      color: #005582;
+    }
+
+    /* Project Cards */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+      text-align: left;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 6px 16px rgba(0,0,0,0.15);
+    }
+    .card img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    /* Skills */
+    .skills span {
+      display: inline-block;
+      background: #fff;
+      padding: 10px 18px;
+      margin: 6px;
+      border-radius: 20px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s, background 0.3s;
+      cursor: default;
+    }
+    .skills span:hover {
+      transform: scale(1.1);
+      background: #0077b5;
+      color: white;
+    }
+
+    /* Resume */
+    .resume {
+      background: #eef6ff;
+    }
+    .resume a {
+      display: inline-block;
+      background: #0077b5;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .resume a:hover {
+      background: #005582;
+      transform: translateY(-3px);
+    }
+
+    /* Contact Form */
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    form input, form textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    form input:focus, form textarea:focus {
+      border-color: #0077b5;
+      box-shadow: 0px 0px 6px rgba(0, 119, 181, 0.3);
+      outline: none;
+    }
+    form button {
+      padding: 12px;
+      background: #0077b5;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    form button:hover {
+      background: #005582;
+      transform: translateY(-2px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #666;
+      border-top: 1px solid #ddd;
+    }
+
+    /* Scroll Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .fade-in.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 📱 Mobile Responsive Styles */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+      header, section {
+        padding: 60px 15px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .profile-pic {
+        width: 140px;
+        height: 140px;
+      }
+      .projects {
+        grid-template-columns: 1fr; /* stack cards */
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+      h2 {
+        font-size: 1.3rem;
+      }
+      nav {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+      .links a {
+        display: block;
+        margin: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <a href="#home" class="active">Home</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <header id="home" class="fade-in">
+    <img src="./assets/images/israel3.jpg" alt="Your Photo" class="profile-pic">
+    <h1>Hi, I’m Israel Akinola</h1>
+    <p>I’m a Software developer specializing in [Golang, Swift, JavaScript, Ruby, TypeScript, HTML5, CSS ]. I love building scalable apps and solving problems.</p>
+    <div class="links">
+      <a href="mailto:israelakinola085@gmail.com">Email</a> |
+      <a href="https://linkedin.com/in/realakinolatobi">LinkedIn</a> |
+      <a href="https://github.com/realakinolaisrael">GitHub</a>
+    </div>
+  </header>
+
+  <!-- Projects -->
+  <section id="projects" class="fade-in">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <img src="project1.png" alt="Project 1">
+        <h3>Project 1</h3>
+        <p>Short description of the project and your role. Tech used: React, Node.js.</p>
+        <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+      </div>
+      <div class="card">
+        <img src="project2.png" alt="Project 2">
+        <h3>Project 2</h3>
+        <p>Short description of the project and your role. Tech used: Go, Docker.</p>
+        <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+      </div>
+      <div class="card">
+        <img src="project3.png" alt="Project 3">
+        <h3>Project 3</h3>
+        <p>Short description of the project and your role. Tech used: JavaScript, SQL.</p>
+        <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="skills fade-in">
+    <h2>Skills & Technologies</h2>
+    <span>JavaScript</span>
+    <span>React</span>
+    <span>Node.js</span>
+    <span>Go</span>
+    <span>MongoDB</span>
+    <span>Docker</span>
+  </section>
+
+  <!-- Experience & Education -->
+  <section id="experience" class="experience fade-in">
+    <h2>Experience & Education</h2>
+    <div class="card">
+      <h3>Software Developer – HLTS Limited</h3>
+      <p><em>2025 – Present</em></p>
+      <p>Leading a team of developers to build scalable ed-tech solutions.</p>
+    </div>
+    <div class="card">
+      <h3>Coding Instructor – Tech Verge Solutions</h3>
+      <p><em>2025</em></p>
+      <p>Taught coding to primary and secondary school students with project-based learning.</p>
+    </div>
+    <div class="card">
+      <h3>Coding Instructor – HLTS Limited</h3>
+      <p><em>2024</em></p>
+      <p>Taught coding to secondary school students with project-based learning.</p>
+    </div>
+
+    <div class="card">
+      <h3>Diploma –  Cloud Engineering AltSchool Africa </h3>
+      <p><em>2025 – Present</em></p>
+    </div>
+
+
+
+  </section>
+
+  <!-- Resume -->
+  <section id="resume" class="resume fade-in">
+    <h2>Download My Resume</h2>
+    <a href="./assets/resume.pdf" download>Download Resume</a>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="fade-in">
+    <h2>Get In Touch</h2>
+    <p>Interested in working together or have a question? Let’s connect!</p>
+    <form onsubmit="sendMessage(event)">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © <span id="year"></span> CodeByIsrael. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Update footer year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Simple form handler
+    function sendMessage(e) {
+      e.preventDefault();
+      alert("Thank you! Your message has been sent.");
+    }
+
+    // Scroll Animation
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+
+    // Navbar Active Link Highlight
+    const sections = document.querySelectorAll("section, header");
+    const navLinks = document.querySelectorAll("nav a");
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(sec => {
+        const secTop = sec.offsetTop - 100;
+        if (pageYOffset >= secTop) {
+          current = sec.getAttribute("id");
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+          link.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
