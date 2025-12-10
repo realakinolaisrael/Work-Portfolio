@@ -4,356 +4,766 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CodeByIsrael</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset & Base */
-     * {
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --accent: #0ea5e9;
+      --accent-2: #f97316;
+      --border: #e2e8f0;
+      --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+    }
+
+    * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      color: #333;
-      background-color: #f9f9f9;
+      font-family: "Sora", "Space Grotesk", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background: radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.08), transparent 25%),
+                  radial-gradient(circle at 80% 0%, rgba(249, 115, 22, 0.08), transparent 22%),
+                  var(--bg);
       line-height: 1.6;
       scroll-behavior: smooth;
-    }
-    h1, h2, h3 {
-      font-weight: bold;
+      overflow-x: hidden;
     }
 
-    /* Navbar */
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 92vw);
+      margin: 0 auto;
+    }
+
+    /* Navigation */
     nav {
       position: sticky;
       top: 0;
-      background: white;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 15px;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
       z-index: 100;
-      flex-wrap: wrap; /* helps with smaller screens */
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--border);
     }
-    nav a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      transition: color 0.3s;
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 0;
     }
-    nav a:hover {
-      color: #0077b5;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Space Grotesk", "Sora", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.02em;
     }
-    nav a.active {
-      color: #0077b5;
-      border-bottom: 2px solid #0077b5;
-      padding-bottom: 4px;
-    }
-
-    header, section {
-      padding: 80px 20px;
-      text-align: center;
-    }
-    header {
-      background: linear-gradient(to bottom, #e0f0ff, #f9f9f9);
-    }
-
-    /* Profile Image */
-    .profile-pic {
-      width: 180px;
-      height: 180px;
+    .brand .dot {
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      margin-bottom: 20px;
-      border: 6px solid white;
-      box-shadow: 0px 6px 20px rgba(0,0,0,0.25),
-                  0px 0px 15px rgba(0, 119, 181, 0.4);
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 8px 18px rgba(14, 165, 233, 0.35);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      padding: 8px 12px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-weight: 500;
+      transition: color 0.25s ease, background 0.25s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--ink);
+      background: rgba(14, 165, 233, 0.12);
+    }
+    .pill-btn {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(14, 165, 233, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .pill-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(14, 165, 233, 0.32);
+    }
+
+    /* Layout */
+    header, section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .section-sub {
+      color: var(--muted);
+      max-width: 680px;
+      margin-bottom: 36px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      align-items: center;
+      gap: 48px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(14, 165, 233, 0.12);
+      color: #0b6587;
+      font-weight: 600;
+    }
+    .eyebrow .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(14, 165, 233, 0.18);
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.2rem);
+      line-height: 1.2;
+      margin: 18px 0 14px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .hero p {
+      color: var(--muted);
+      max-width: 620px;
+      margin-bottom: 22px;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 16px 0 30px;
+    }
+    .chip {
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.05);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .ghost-btn {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--ink);
+      font-weight: 600;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    }
+    .ghost-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 26px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    .stat-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+    .stat-card p {
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .hero-visual {
+      position: relative;
+      display: grid;
+      place-items: center;
+    }
+    .profile-ring {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: conic-gradient(from 120deg, rgba(14, 165, 233, 0.15), rgba(249, 115, 22, 0.18), rgba(14, 165, 233, 0.15));
+      filter: blur(12px);
+      z-index: 0;
+    }
+    .profile-pic {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      border-radius: 22px;
       object-fit: cover;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .profile-pic:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 8px 25px rgba(0,0,0,0.3),
-                  0px 0px 20px rgba(0, 119, 181, 0.5);
+      border: 8px solid #fff;
+      box-shadow: var(--shadow);
+      z-index: 1;
     }
 
-    /* Links */
-    .links a {
-      margin: 0 10px;
-      font-size: 1.1em;
-      color: #0077b5;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    .links a:hover {
-      color: #005582;
-    }
-
-    /* Project Cards */
-    .projects {
+    /* Projects */
+    .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 20px;
-      max-width: 1000px;
-      margin: 0 auto;
     }
-    .card {
-      background: #fff;
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
-      text-align: left;
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0px 6px 16px rgba(0,0,0,0.15);
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      border-color: rgba(14, 165, 233, 0.4);
     }
-    .card img {
-      max-width: 100%;
-      border-radius: 8px;
-      margin-bottom: 10px;
+    .project-card h3 {
+      margin: 6px 0 8px;
+      font-size: 1.2rem;
     }
-
-    /* Skills */
-    .skills span {
-      display: inline-block;
-      background: #fff;
-      padding: 10px 18px;
-      margin: 6px;
-      border-radius: 20px;
-      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
-      transition: transform 0.3s, background 0.3s;
-      cursor: default;
+    .project-card p {
+      color: var(--muted);
+      margin-bottom: 12px;
     }
-    .skills span:hover {
-      transform: scale(1.1);
-      background: #0077b5;
-      color: white;
-    }
-
-    /* Resume */
-    .resume {
-      background: #eef6ff;
-    }
-    .resume a {
-      display: inline-block;
-      background: #0077b5;
-      color: white;
-      padding: 14px 28px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s, transform 0.3s;
-    }
-    .resume a:hover {
-      background: #005582;
-      transform: translateY(-3px);
-    }
-
-    /* Contact Form */
-    form {
-      max-width: 500px;
-      margin: 0 auto;
+    .tag-row {
       display: flex;
-      flex-direction: column;
-      gap: 15px;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
     }
-    form input, form textarea {
-      padding: 12px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      transition: border-color 0.3s, box-shadow 0.3s;
+    .tag {
+      padding: 8px 10px;
+      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.04);
+      border: 1px solid var(--border);
+      font-weight: 600;
+      font-size: 0.9rem;
     }
-    form input:focus, form textarea:focus {
-      border-color: #0077b5;
-      box-shadow: 0px 0px 6px rgba(0, 119, 181, 0.3);
+    .project-links {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-weight: 600;
+    }
+    .project-links a {
+      color: var(--accent);
+    }
+
+    /* Skills / Capabilities */
+    .capabilities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .capability {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+    .capability h4 {
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .capability p {
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .skill-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-pill {
+      padding: 8px 12px;
+      border-radius: 12px;
+      background: rgba(14, 165, 233, 0.12);
+      color: #0b6587;
+      font-weight: 600;
+    }
+
+    /* Experience */
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 4px;
+      bottom: 4px;
+      width: 2px;
+      background: linear-gradient(180deg, rgba(14, 165, 233, 0.5), rgba(249, 115, 22, 0.5));
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 30px;
+    }
+    .timeline-dot {
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow: 0 10px 18px rgba(14, 165, 233, 0.35);
+    }
+    .timeline-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+    }
+    .timeline-card h4 {
+      margin-bottom: 6px;
+    }
+    .timeline-card span {
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+    .timeline-card p {
+      color: var(--muted);
+    }
+
+    /* Resume CTA */
+    .resume-cta {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(249, 115, 22, 0.15));
+      border: 1px solid rgba(14, 165, 233, 0.2);
+      border-radius: 18px;
+      padding: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+    .resume-cta p {
+      color: var(--muted);
+    }
+
+    /* Contact */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+    form {
+      display: grid;
+      gap: 12px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus {
       outline: none;
+      border-color: rgba(14, 165, 233, 0.6);
+      box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
     }
-    form button {
-      padding: 12px;
-      background: #0077b5;
-      color: white;
+    button {
       border: none;
-      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.3s;
+      font-weight: 700;
     }
-    form button:hover {
-      background: #005582;
+    .submit-btn {
+      padding: 12px 16px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(14, 165, 233, 0.24);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .submit-btn:hover {
       transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(14, 165, 233, 0.3);
     }
 
     /* Footer */
     footer {
+      padding: 30px 0 40px;
       text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #666;
-      border-top: 1px solid #ddd;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
     }
 
-    /* Scroll Animations */
+    /* Animations */
     .fade-in {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 1s ease, transform 1s ease;
+      transform: translateY(24px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
     .fade-in.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* 📱 Mobile Responsive Styles */
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        gap: 10px;
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: left;
       }
-      header, section {
-        padding: 60px 15px;
+      .hero-visual {
+        justify-content: flex-start;
       }
-      h1 {
-        font-size: 1.8rem;
+      .contact-grid {
+        grid-template-columns: 1fr;
       }
-      .profile-pic {
-        width: 140px;
-        height: 140px;
-      }
-      .projects {
-        grid-template-columns: 1fr; /* stack cards */
+      .resume-cta {
+        align-items: flex-start;
       }
     }
 
-    @media (max-width: 480px) {
-      h1 {
-        font-size: 1.5rem;
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
       }
-      h2 {
-        font-size: 1.3rem;
+      header, section {
+        padding: 70px 0;
       }
-      nav {
-        font-size: 0.9rem;
-        padding: 10px;
+      .hero-actions {
+        width: 100%;
       }
-      .links a {
-        display: block;
-        margin: 8px 0;
+      .stat-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- Navbar -->
+  <!-- Navigation -->
   <nav>
-    <a href="#home" class="active">Home</a>
-    <a href="#projects">Projects</a>
-    <a href="#skills">Skills</a>
-    <a href="#experience">Experience</a>
-    <a href="#resume">Resume</a>
-    <a href="#contact">Contact</a>
+    <div class="container nav-inner">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>CodeByIsrael</span>
+      </div>
+      <div class="nav-links">
+        <a href="#home" class="active">Home</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Capabilities</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#resume">Resume</a>
+        <a class="pill-btn" href="#contact">Let’s talk</a>
+      </div>
+    </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header id="home" class="fade-in">
-    <img src="./assets/images/israel3.jpg" alt="Your Photo" class="profile-pic">
-    <h1>Hi, I’m Israel Akinola</h1>
-    <p>I’m a Software Engineer specializing in [Go]. I love building scalable apps and solving problems..</p>
-    <div class="links">
-      <a href="mailto:israelakinola085@gmail.com">Email</a> |
-      <a href="https://linkedin.com/in/realakinolatobi">LinkedIn</a> |
-      <a href="https://github.com/realakinolaisrael">GitHub</a>
-    </div>
-  </header>
-
-  <!-- Projects -->
-  <section id="projects" class="fade-in">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <img src="project1.png" alt="Project 1">
-        <h3>Project 1</h3>
-        <p>Short description of the project and your role. Tech used: React, Node.js.</p>
-        <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+  <main>
+    <!-- Hero -->
+    <header id="home" class="fade-in">
+      <div class="container hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="pulse"></span>Available for impactful builds</div>
+          <h1>Software Engineer crafting resilient, human-friendly products.</h1>
+          <p>I design and ship backends, APIs, and cross-platform experiences with Go, TypeScript, and cloud tooling. Pragmatic, metrics-driven, and obsessed with thoughtful developer experience.</p>
+          <div class="chips">
+            <span class="chip">Go</span>
+            <span class="chip">TypeScript</span>
+            <span class="chip">Node.js</span>
+            <span class="chip">Docker</span>
+            <span class="chip">MongoDB</span>
+          </div>
+          <div class="hero-actions">
+            <a class="pill-btn" href="#projects">View work</a>
+            <a class="ghost-btn" href="mailto:israelakinola085@gmail.com">Email</a>
+            <a class="ghost-btn" href="https://linkedin.com/in/realakinolatobi" target="_blank" rel="noreferrer">LinkedIn</a>
+            <a class="ghost-btn" href="https://github.com/realakinolaisrael" target="_blank" rel="noreferrer">GitHub</a>
+          </div>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <h3>04+</h3>
+              <p>Years building software</p>
+            </div>
+            <div class="stat-card">
+              <h3>20+</h3>
+              <p>Projects shipped end-to-end</p>
+            </div>
+            <div class="stat-card">
+              <h3>50+</h3>
+              <p>Students mentored</p>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div class="profile-ring"></div>
+          <img src="./assets/images/israel3.jpg" alt="Portrait of Israel Akinola" class="profile-pic">
+        </div>
       </div>
-      <div class="card">
-        <img src="project2.png" alt="Project 2">
-        <h3>Project 2</h3>
-        <p>Short description of the project and your role. Tech used: Go, Docker.</p>
-        <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+    </header>
+
+    <!-- Projects -->
+    <section id="projects" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Selected Projects</h2>
+        <p class="section-sub">A snapshot of products where I led architecture, backend implementation, and experience polish.</p>
+        <div class="projects-grid">
+          <div class="project-card">
+            <h3>EdTech Launchpad</h3>
+            <p>Microservice-powered learning platform with adaptive content delivery and instructor dashboards.</p>
+            <div class="tag-row">
+              <span class="tag">Go</span>
+              <span class="tag">gRPC</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Docker</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Live</a>
+              <a href="#">Code</a>
+            </div>
+          </div>
+          <div class="project-card">
+            <h3>Ops Command</h3>
+            <p>Internal operations suite automating onboarding, access control, and audit trails for distributed teams.</p>
+            <div class="tag-row">
+              <span class="tag">Node.js</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">MongoDB</span>
+              <span class="tag">Redis</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Case Study</a>
+              <a href="#">Code</a>
+            </div>
+          </div>
+          <div class="project-card">
+            <h3>Pulse Health</h3>
+            <p>Patient-facing mobile experience with secure APIs for scheduling, triage flows, and clinician messaging.</p>
+            <div class="tag-row">
+              <span class="tag">Swift</span>
+              <span class="tag">Go</span>
+              <span class="tag">REST</span>
+              <span class="tag">CI/CD</span>
+            </div>
+            <div class="project-links">
+              <a href="#">Prototype</a>
+              <a href="#">Code</a>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="card">
-        <img src="project3.png" alt="Project 3">
-        <h3>Project 3</h3>
-        <p>Short description of the project and your role. Tech used: JavaScript, SQL.</p>
-        <a href="#">Live Demo</a> | <a href="#">Source Code</a>
+    </section>
+
+    <!-- Skills / Capabilities -->
+    <section id="skills" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Capabilities</h2>
+        <p class="section-sub">Building reliable platforms end-to-end: design the data model, wire the services, ship the UI, and keep it observable.</p>
+        <div class="capabilities-grid">
+          <div class="capability">
+            <h4>Backends & APIs</h4>
+            <p>Designing contracts and scalable data flows with attention to latency and ergonomics.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">Go</span>
+              <span class="skill-pill">Node.js</span>
+              <span class="skill-pill">gRPC</span>
+              <span class="skill-pill">REST</span>
+            </div>
+          </div>
+          <div class="capability">
+            <h4>Cloud & Ops</h4>
+            <p>Shipping with containers, observability, and CI/CD that teams actually enjoy using.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">Docker</span>
+              <span class="skill-pill">CI/CD</span>
+              <span class="skill-pill">Grafana</span>
+              <span class="skill-pill">Redis</span>
+            </div>
+          </div>
+          <div class="capability">
+            <h4>Frontend & Mobile</h4>
+            <p>Interfaces that are fast, intentional, and aligned with the system behind them.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">TypeScript</span>
+              <span class="skill-pill">Swift</span>
+              <span class="skill-pill">CSS</span>
+              <span class="skill-pill">Design Systems</span>
+            </div>
+          </div>
+          <div class="capability">
+            <h4>Data & Storage</h4>
+            <p>Clear schemas, reliable migrations, and fast lookups tuned for the workload.</p>
+            <div class="skill-pills">
+              <span class="skill-pill">PostgreSQL</span>
+              <span class="skill-pill">MongoDB</span>
+              <span class="skill-pill">Caching</span>
+              <span class="skill-pill">Queues</span>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Skills -->
-  <section id="skills" class="skills fade-in">
-    <h2>Skills & Technologies</h2>
-    <span>JavaScript</span>
-    <span>Swift</span>
-    <span>Node.js</span>
-    <span>Go</span>
-    <span>MongoDB</span>
-    <span>Docker</span>
-    <span>HTML5</span>
-    <span>CSS3</span> 
-    <span>TypeScript</span>
-  </section>
+    <!-- Experience -->
+    <section id="experience" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Experience</h2>
+        <p class="section-sub">Hands-on roles leading delivery, mentoring teams, and keeping systems reliable.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h4>Software Developer — HLTS Limited</h4>
+              <span>2025 – Present</span>
+              <p>Leading a team shipping scalable ed-tech solutions with service-oriented architecture and measurable uptime goals.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h4>Coding Instructor — Tech Verge Solutions</h4>
+              <span>2025</span>
+              <p>Taught primary and secondary students through project-based learning focused on problem solving and product thinking.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h4>Coding Instructor — HLTS Limited</h4>
+              <span>2024</span>
+              <p>Guided students through fundamentals of software development with hands-on projects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- Experience & Education -->
-  <section id="experience" class="experience fade-in">
-    <h2>Experience & Education</h2>
-    <div class="card">
-      <h3>Software Developer – HLTS Limited</h3>
-      <p><em>2025 – Present</em></p>
-      <p>Leading a team of developers to build scalable ed-tech solutions.</p>
-    </div>
-    <div class="card">
-      <h3>Coding Instructor – Tech Verge Solutions</h3>
-      <p><em>2025</em></p>
-      <p>Taught coding to primary and secondary school students with project-based learning.</p>
-    </div>
-    <div class="card">
-      <h3>Coding Instructor – HLTS Limited</h3>
-      <p><em>2024</em></p>
-      <p>Taught coding to secondary school students with project-based learning.</p>
-    </div>
+    <!-- Education -->
+    <section id="education" class="fade-in">
+      <div class="container">
+        <h2 class="section-title">Education</h2>
+        <p class="section-sub">Academic paths focused on systems, cloud foundations, and pragmatic software delivery.</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h4>B.Sc. Computer Science — Miva Open University</h4>
+              <span>Sept 2025 – Present</span>
+              <p>Diving into computer science fundamentals, algorithms, and applied software engineering starting September 2025.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h4>Diploma — Cloud Engineering, AltSchool Africa</h4>
+              <span>2025 – Present</span>
+              <p>Building a foundation in distributed systems, deployment pipelines, and cloud-native tooling.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <div class="card">
-      <h3>Diploma –  Cloud Engineering AltSchool Africa </h3>
-      <p><em>2025 – Present</em></p>
-    </div>
+    <!-- Resume -->
+    <section id="resume" class="fade-in">
+      <div class="container">
+        <div class="resume-cta">
+          <div>
+            <h3 style="margin-bottom: 6px;">Want the full story?</h3>
+            <p>Download my resume for a deeper look at roles, impact metrics, and references.</p>
+          </div>
+          <a class="pill-btn" href="./assets/resume.pdf" download>Download Resume</a>
+        </div>
+      </div>
+    </section>
 
+    <!-- Contact -->
+    <section id="contact" class="fade-in">
+      <div class="container contact-grid">
+        <div>
+          <h2 class="section-title">Let’s build something</h2>
+          <p class="section-sub">Open to backend-heavy roles, platform teams, and collaborations where reliability and clarity matter.</p>
+          <div class="stat-grid">
+            <div class="stat-card">
+              <h3>Response</h3>
+              <p>Replies within 48 hours.</p>
+            </div>
+            <div class="stat-card">
+              <h3>Location</h3>
+              <p>Remote-first, Lagos time.</p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <form onsubmit="sendMessage(event)">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" placeholder="Work email" required>
+            <textarea rows="5" placeholder="What are we building?" required></textarea>
+            <button type="submit" class="submit-btn">Send message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
 
-
-  </section>
-
-  <!-- Resume -->
-  <section id="resume" class="resume fade-in">
-    <h2>Download My Resume</h2>
-    <a href="./assets/resume.pdf" download>Download Resume</a>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="fade-in">
-    <h2>Get In Touch</h2>
-    <p>Interested in working together or have a question? Let’s connect!</p>
-    <form onsubmit="sendMessage(event)">
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
   <footer>
-    © <span id="year"></span> CodeByIsrael. All Rights Reserved.
+    © <span id="year"></span> CodeByIsrael. Crafted with intention.
   </footer>
 
   <script>
@@ -381,11 +791,11 @@
 
     // Navbar Active Link Highlight
     const sections = document.querySelectorAll("section, header");
-    const navLinks = document.querySelectorAll("nav a");
+    const navLinks = document.querySelectorAll("nav a[href^='#']");
     window.addEventListener("scroll", () => {
       let current = "";
       sections.forEach(sec => {
-        const secTop = sec.offsetTop - 100;
+        const secTop = sec.offsetTop - 120;
         if (pageYOffset >= secTop) {
           current = sec.getAttribute("id");
         }
